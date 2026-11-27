@@ -11,6 +11,7 @@
  *   restricted   – reachable, but needs an account / registration / subscription
  *   unverified   – reachable, but content can't be confirmed automatically (e.g. login-only app)
  *   no-embed     – YouTube video exists but the owner disabled embedding
+ *   (restricted + ageRestricted) – age-restricted YouTube video; linked, never embedded
  *   unavailable  – 404 / removed / private / expected content missing
  *   unchecked    – the check itself failed (network error) – status unknown
  *
@@ -82,6 +83,24 @@ async function check(c) {
       );
       if (res.status === 200) {
         const j = JSON.parse(text);
+        // oEmbed says "public" even for age-restricted videos, which can't play
+        // in an embed. The public watch page carries isFamilySafe:false for those.
+        let ageRestricted = false;
+        try {
+          const page = await get(c.url);
+          ageRestricted = /"isFamilySafe":false/.test(page.text);
+        } catch {
+          /* watch page unavailable (rate limit) – keep the oEmbed result */
+        }
+        if (ageRestricted)
+          return {
+            status: 'restricted',
+            httpStatus: 200,
+            title: j.title,
+            channel: j.author_name,
+            ageRestricted: true,
+            note: 'Age-restricted on YouTube: viewers must sign in on YouTube, so it is linked instead of embedded.',
+          };
         return { status: 'available', httpStatus: 200, title: j.title, channel: j.author_name, note: 'Public and embeddable (YouTube oEmbed).' };
       }
       if (res.status === 401 || res.status === 403)

@@ -2,9 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import type { Video } from '../data/types';
 import { embedUrl, thumbnailUrl } from '../lib/youtube';
 import { getLinkStatus } from '../lib/linkStatus';
-import { canEmbed, videoLinkText } from '../lib/video';
+import { canEmbed, hostName, linkOnlyReason, videoLinkText } from '../lib/video';
+
+function platformName(url: string): string {
+  const h = hostName(url);
+  return h === 'brighttalk.com' ? 'BrightTALK' : h;
+}
 import { Icon } from './Icon';
-import { ExtLink, LinkStatusBadge, LinkStatusNote } from './ui';
+import { ExtLink, LinkStatusBadge } from './ui';
 
 type ThumbState = 'loading' | 'ok' | 'failed';
 type PlayerState = 'idle' | 'loading' | 'ready' | 'slow';
@@ -27,6 +32,7 @@ export function VideoPlayer({
 }) {
   const status = getLinkStatus(video.url);
   const embeddable = canEmbed(video);
+  const reason = linkOnlyReason(video, status);
   const [thumb, setThumb] = useState<ThumbState>('loading');
   const [player, setPlayer] = useState<PlayerState>(startOpen && embeddable ? 'loading' : 'idle');
   const slowTimer = useRef<number | undefined>(undefined);
@@ -102,18 +108,20 @@ export function VideoPlayer({
           <span className="video-poster-hint">Click to load the player (youtube-nocookie.com)</span>
         </button>
       ) : (
-        <div className={`video-placeholder ${unavailable ? 'is-bad' : ''}`}>
-          <Icon name={unavailable ? 'alert' : video.kind === 'channel' ? 'layers' : 'video'} size={30} />
-          <span>
-            {unavailable
-              ? 'Video unavailable'
-              : video.kind === 'channel'
-                ? 'YouTube channel'
-                : video.kind === 'recording'
-                  ? 'External recording'
-                  : 'External video'}
+        <a
+          className={`video-placeholder ${unavailable ? 'is-bad' : 'is-link'}`}
+          href={video.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${videoLinkText(video)}: ${video.title} (opens in a new tab)`}
+        >
+          <Icon name={unavailable ? 'alert' : reason ? 'lock' : video.kind === 'channel' ? 'layers' : 'external'} size={26} />
+          <span className="video-placeholder-title">
+            {unavailable ? 'Video unavailable' : `Opens on ${video.kind === 'video' || video.kind === 'channel' ? 'YouTube' : platformName(video.url)}`}
           </span>
-        </div>
+          {!unavailable && reason && <span className="video-placeholder-sub">{reason}</span>}
+          {!unavailable && !reason && video.kind === 'channel' && <span className="video-placeholder-sub">YouTube channel</span>}
+        </a>
       )}
     </div>
   );
@@ -166,10 +174,7 @@ export function VideoCard({ video, index }: { video: Video; index?: number }) {
           <strong>Focus:</strong> {video.purpose}
         </p>
 
-        {unavailable ? <UnavailableVideoNote video={video} /> : <LinkStatusNote url={video.url} />}
-        {video.kind === 'recording' && (
-          <p className="muted small">BrightTALK recordings open on brighttalk.com and can’t be embedded here.</p>
-        )}
+        {unavailable && <UnavailableVideoNote video={video} />}
 
         <div className="video-actions">
           <ExtLink href={video.url} className="btn btn-ghost btn-sm">

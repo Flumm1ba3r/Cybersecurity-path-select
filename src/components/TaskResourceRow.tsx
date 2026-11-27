@@ -3,7 +3,7 @@ import type { TaskResource, Week } from '../data/types';
 import { getLinkStatus } from '../lib/linkStatus';
 import { Icon } from './Icon';
 import { UnavailableVideoNote, VideoPlayer } from './VideoCard';
-import { canEmbed, videoLinkText } from '../lib/video';
+import { canEmbed, linkOnlyReason, videoLinkText } from '../lib/video';
 import { ExtLink, LinkStatusBadge } from './ui';
 
 /**
@@ -44,7 +44,7 @@ export function TaskResourceRow({ week, resource, taskId }: { week: Week; resour
           </span>
         </div>
         {video.instruction && <p className="task-res-hint">{video.instruction}</p>}
-        {getLinkStatus(video.url).status === 'restricted' && <p className="task-res-hint warn">{getLinkStatus(video.url).note}</p>}
+        {!embeddable && linkOnlyReason(video) && <p className="task-res-hint">{linkOnlyReason(video)}</p>}
         {playing && (
           <div id={panelId} className="task-player">
             <VideoPlayer video={video} startOpen onUnavailable={setUnavailable} />

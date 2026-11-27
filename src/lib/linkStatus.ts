@@ -12,6 +12,7 @@ export interface LinkStatus {
   retired?: boolean;
   difficulty?: string;
   redirectsTo?: string;
+  ageRestricted?: boolean;
 }
 
 const results = data.results as Record<string, LinkStatus>;

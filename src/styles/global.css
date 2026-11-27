@@ -2432,3 +2432,35 @@ textarea::placeholder {
   margin-left: 4px;
   padding: 2px 6px;
 }
+
+/* Link-only video panel (restricted / sign-in / not embeddable) */
+a.video-placeholder {
+  text-decoration: none;
+  padding: 16px;
+  text-align: center;
+  transition: background 0.2s;
+}
+.video-placeholder.is-link {
+  color: var(--text-2);
+  background:
+    radial-gradient(400px 200px at 50% 40%, rgb(53 208 195 / 0.08), transparent 70%),
+    linear-gradient(135deg, #0b1b2e, #0f2238);
+}
+.video-placeholder.is-link svg {
+  color: var(--accent);
+}
+.video-placeholder.is-link:hover {
+  background:
+    radial-gradient(400px 200px at 50% 40%, rgb(53 208 195 / 0.14), transparent 70%),
+    linear-gradient(135deg, #0d203a, #112842);
+}
+.video-placeholder-title {
+  font-weight: 650;
+  color: var(--text);
+  font-size: 0.98rem;
+}
+.video-placeholder-sub {
+  font-size: 0.82rem;
+  color: var(--text-2);
+  max-width: 32ch;
+}

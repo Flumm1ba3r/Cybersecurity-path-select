@@ -56,7 +56,8 @@ Training-platform access and video availability change over time, so the app nev
 - `scripts/check-links.mjs` checks every URL. Pages must load with their expected content, and YouTube videos are checked for being public and embeddable via oEmbed. Results are written to `src/data/link-status.json`.
 - Each challenge, walkthrough and video shows a status badge: *Link checked*, *Access restricted*, *Sign-in required*, *Embedding disabled*, *Unavailable* or *Not checked*. Resources that need attention also get a short explanation. The full table is on **About → Resource & link status**.
 - YouTube embeds use `youtube-nocookie.com`, stay collapsed until you click play, and never autoplay. If a video's thumbnail fails to load at runtime (removed, private or blocked), the card switches to a clear "Video unavailable" state with a direct link instead of an iframe.
-- Channels and the BrightTALK recording are shown as external-link cards.
+- **Strict embed rule:** a video is only embedded if the last link check confirmed it as public, embeddable and not age-restricted. Anything that needs a sign-in or subscription, isn't embeddable, or wasn't verified is shown as a clean "Opens on …" link card, so YouTube's error and sign-in screens never appear inside the app. That covers the BrightTALK recording and the channels.
+- Daily checklist tasks show their resource inline: **Watch here** for embeddable videos, and **Open recording / challenge / walkthrough** for everything else.
 
 Re-run `npm run check-links` before publishing changes and commit the updated JSON. Never substitute a different challenge or video without updating the plan first.
 

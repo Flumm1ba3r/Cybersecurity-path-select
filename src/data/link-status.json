@@ -1,0 +1,141 @@
+{
+  "checkedOn": "2026-11-27",
+  "results": {
+    "https://cyberdefenders.org/blueteam-ctf-challenges/beta-gamer/": {
+      "status": "restricted",
+      "httpStatus": 200,
+      "premium": true,
+      "retired": true,
+      "difficulty": "medium",
+      "note": "Lab page loads; marked premium on the platform, marked retired, platform difficulty: medium."
+    },
+    "https://cyberdefenders.org/walkthroughs/beta-gamer/": {
+      "status": "restricted",
+      "httpStatus": 200,
+      "note": "Only a preview is visible without signing in; the full walkthrough requires an account (and possibly a subscription)."
+    },
+    "https://www.youtube.com/watch?v=VYROU-ZwZX8": {
+      "status": "available",
+      "httpStatus": 200,
+      "title": "Introduction to Windows Forensics",
+      "channel": "13Cubed",
+      "note": "Public and embeddable (YouTube oEmbed)."
+    },
+    "https://www.brighttalk.com/webcast/20359/674280": {
+      "status": "restricted",
+      "httpStatus": 200,
+      "note": "On-demand recording page loads (listed duration 59 min); BrightTALK asks viewers to register before watching."
+    },
+    "https://cyberdefenders.org/blueteam-ctf-challenges/agenttesla/": {
+      "status": "restricted",
+      "httpStatus": 200,
+      "premium": true,
+      "retired": true,
+      "difficulty": "medium",
+      "note": "Lab page loads; marked premium on the platform, marked retired, platform difficulty: medium."
+    },
+    "https://cyberdefenders.org/walkthroughs/agenttesla/": {
+      "status": "restricted",
+      "httpStatus": 200,
+      "note": "Only a preview is visible without signing in; the full walkthrough requires an account (and possibly a subscription)."
+    },
+    "https://www.youtube.com/watch?v=GlDCDxNOT1c": {
+      "status": "available",
+      "httpStatus": 200,
+      "title": "Malware Analysis Case Study: From Phishing Campaign to Reflective Loader (with ANY.RUN)",
+      "channel": "CYBERWOX",
+      "note": "Public and embeddable (YouTube oEmbed)."
+    },
+    "https://www.youtube.com/watch?v=sBuxwMAfGnI": {
+      "status": "available",
+      "httpStatus": 200,
+      "title": "MALWARE ANALYSIS // How to get started with John Hammond",
+      "channel": "David Bombal",
+      "note": "Public and embeddable (YouTube oEmbed)."
+    },
+    "https://web.cecs.pdx.edu/~dmcgrath/courses/F26/malware/ghidra_crackme_walkthrough.html": {
+      "status": "available",
+      "httpStatus": 200
+    },
+    "https://ghidra-sre.org/": {
+      "status": "available",
+      "httpStatus": 301,
+      "note": "Redirects to https://github.com/NationalSecurityAgency/ghidra.",
+      "redirectsTo": "https://github.com/NationalSecurityAgency/ghidra"
+    },
+    "https://www.youtube.com/watch?v=OFAxXXcLXbc": {
+      "status": "available",
+      "httpStatus": 200,
+      "title": "Ghidra Tutorial for Beginners — Reverse Engineering Your First Program",
+      "channel": "Dungeons and Diving - Cyber",
+      "note": "Public and embeddable (YouTube oEmbed)."
+    },
+    "https://www.youtube.com/watch?v=TJhfnItRVOA": {
+      "status": "available",
+      "httpStatus": 200,
+      "title": "Malware Analysis With Ghidra - Stuxnet Analysis",
+      "channel": "HackerSploit",
+      "note": "Public and embeddable (YouTube oEmbed)."
+    },
+    "https://app.hackthebox.com/machines/Lame": {
+      "status": "unverified",
+      "httpStatus": 200,
+      "note": "The HTB app loads but requires sign-in, so machine availability and subscription requirements could not be confirmed automatically."
+    },
+    "https://hackersploit.org/hackthebox-lame-walkthrough/": {
+      "status": "available",
+      "httpStatus": 200
+    },
+    "https://www.youtube.com/watch?v=ntBkyid_u8Y": {
+      "status": "available",
+      "httpStatus": 200,
+      "title": "Pentesting for n00bs: Episode 2 - Lame",
+      "channel": "The Cyber Mentors",
+      "note": "Public and embeddable (YouTube oEmbed)."
+    },
+    "https://www.youtube.com/@TCMSecurityAcademy": {
+      "status": "available",
+      "httpStatus": 200
+    },
+    "https://cyberdefenders.org/blueteam-ctf-challenges/revil-gold-southfield/": {
+      "status": "restricted",
+      "httpStatus": 200,
+      "premium": true,
+      "retired": true,
+      "difficulty": "easy",
+      "note": "Lab page loads; marked premium on the platform, marked retired, platform difficulty: easy."
+    },
+    "https://cyberdefenders.org/walkthroughs/revil-gold-southfield/": {
+      "status": "restricted",
+      "httpStatus": 200,
+      "note": "Only a preview is visible without signing in; the full walkthrough requires an account (and possibly a subscription)."
+    },
+    "https://hallibut.github.io/posts/cyber-defenders-revil-gold-southfield/": {
+      "status": "available",
+      "httpStatus": 200
+    },
+    "https://www.youtube.com/watch?v=9-EY5tYUfpA": {
+      "status": "available",
+      "httpStatus": 200,
+      "title": "Elastic Case: Log4Shell Investigation with Elastic SIEM",
+      "channel": "CyberDefenders",
+      "note": "Public and embeddable (YouTube oEmbed)."
+    },
+    "https://www.youtube.com/@13Cubed": {
+      "status": "available",
+      "httpStatus": 200
+    },
+    "https://cyberdefenders.org/": {
+      "status": "available",
+      "httpStatus": 200
+    },
+    "https://cyberdefenders.org/pricing/": {
+      "status": "available",
+      "httpStatus": 200
+    },
+    "https://www.hackthebox.com/": {
+      "status": "available",
+      "httpStatus": 200
+    }
+  }
+}

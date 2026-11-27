@@ -6,7 +6,7 @@
  * plan. Video durations / channel names are only filled in where verified
  * against the source (see src/data/link-status.json and scripts/check-links.mjs).
  */
-import type { Day, Week } from './types';
+import type { Day, TaskResource, Week } from './types';
 import { youtubeIdFromUrl } from '../lib/youtube';
 
 function days(weekId: string, raw: Array<{ title: string; tasks: string[]; deliverable: string }>): Day[] {
@@ -730,4 +730,54 @@ export const allTaskIds = weeks.flatMap((w) => w.days.flatMap((d) => d.tasks.map
 
 export function getWeek(idOrNumber: string | number): Week | undefined {
   return weeks.find((w) => w.id === idOrNumber || String(w.number) === String(idOrNumber) || w.slug === idOrNumber);
+}
+
+/**
+ * Links daily tasks to the resource they mention, so the checklist can offer
+ * "Watch here" / "Open challenge" / "Open walkthrough" right next to the task.
+ * Keys are task IDs (week-day-task); values point at resources already in the plan.
+ */
+const taskResources: Record<string, TaskResource> = {
+  // Week 1 — DFIR
+  'w1-d1-t1': { type: 'video', videoId: 'w1-v1' },
+  'w1-d1-t3': { type: 'challenge' },
+  'w1-d2-t1': { type: 'video', videoId: 'w1-v2' },
+  'w1-d3-t1': { type: 'challenge' },
+  'w1-d4-t2': { type: 'walkthrough', index: 0 },
+  'w1-d5-t2': { type: 'walkthrough', index: 0 },
+  // Week 2 — Malware analysis
+  'w2-d1-t1': { type: 'video', videoId: 'w2-v2' },
+  'w2-d1-t2': { type: 'challenge' },
+  'w2-d2-t1': { type: 'video', videoId: 'w2-v1' },
+  'w2-d3-t1': { type: 'challenge' },
+  'w2-d4-t1': { type: 'walkthrough', index: 0 },
+  'w2-d5-t2': { type: 'walkthrough', index: 0 },
+  // Week 3 — Reverse engineering
+  'w3-d1-t1': { type: 'related', index: 0 },
+  'w3-d1-t2': { type: 'video', videoId: 'w3-v1' },
+  'w3-d1-t4': { type: 'challenge' },
+  'w3-d2-t2': { type: 'walkthrough', index: 0 },
+  'w3-d3-t4': { type: 'walkthrough', index: 0 },
+  'w3-d4-t2': { type: 'walkthrough', index: 0 },
+  'w3-d5-t1': { type: 'video', videoId: 'w3-v2' },
+  // Week 4 — Red team / pentest
+  'w4-d1-t1': { type: 'video', videoId: 'w4-v2' },
+  'w4-d1-t2': { type: 'challenge' },
+  'w4-d2-t1': { type: 'challenge' },
+  'w4-d2-t2': { type: 'video', videoId: 'w4-v1' },
+  'w4-d3-t3': { type: 'video', videoId: 'w4-v1' },
+  'w4-d4-t1': { type: 'video', videoId: 'w4-v1' },
+  'w4-d5-t1': { type: 'walkthrough', index: 0 },
+  // Week 5 — Threat hunting
+  'w5-d1-t1': { type: 'video', videoId: 'w5-v1' },
+  'w5-d1-t3': { type: 'challenge' },
+  'w5-d2-t1': { type: 'challenge' },
+  'w5-d3-t1': { type: 'challenge' },
+  'w5-d4-t1': { type: 'walkthrough', index: 0 },
+  'w5-d4-t4': { type: 'walkthrough', index: 1 },
+  'w5-d5-t1': { type: 'challenge' },
+};
+
+export function getTaskResource(taskId: string): TaskResource | undefined {
+  return taskResources[taskId];
 }

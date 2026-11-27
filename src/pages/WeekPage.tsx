@@ -119,7 +119,7 @@ export function WeekPage() {
         <SectionHeader icon="calendar" kicker="Day 1 – Day 5" title="Daily schedule" id="days-h" />
         <div className="day-list">
           {week.days.map((d) => (
-            <DayCard key={d.id} week={week} day={d} isNext={next?.day.id === d.id} />
+            <DayCard key={d.id} week={week} day={d} isNext={next?.day.id === d.id} requested={dayParam === String(d.number)} />
           ))}
         </div>
       </section>

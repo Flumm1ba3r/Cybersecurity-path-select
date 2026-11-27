@@ -2,23 +2,30 @@ import { useState } from 'react';
 import type { Day, Week } from '../data/types';
 import { useProgress } from '../hooks/useProgress';
 import { dayProgress } from '../lib/progress';
-import { programmeMeta } from '../data/programme';
+import { getTaskResource, programmeMeta } from '../data/programme';
+import { TaskResourceRow } from './TaskResourceRow';
 import { Icon } from './Icon';
 import { ProgressBar } from './ui';
 import { StoredTextarea } from './StoredTextarea';
 
-export function DayCard({ week, day, isNext }: { week: Week; day: Day; isNext: boolean }) {
+export function DayCard({ week, day, isNext, requested = false }: { week: Week; day: Day; isNext: boolean; requested?: boolean }) {
   const { state, toggleTask, setDayComplete, setDayNote } = useProgress();
   const p = dayProgress(state, day);
   const complete = p.pct === 100;
-  const [open, setOpen] = useState(isNext || (p.done > 0 && !complete));
+  const [open, setOpen] = useState(isNext || requested || (p.done > 0 && !complete));
   const nextIdx = day.tasks.findIndex((t) => !state.tasks[t.id]);
 
   // Open the card when it becomes the "next" day (e.g. after completing the previous one).
+  // Also open it when a link asks for this day (?day=N).
   const [wasNext, setWasNext] = useState(isNext);
   if (isNext !== wasNext) {
     setWasNext(isNext);
     if (isNext) setOpen(true);
+  }
+  const [wasRequested, setWasRequested] = useState(requested);
+  if (requested !== wasRequested) {
+    setWasRequested(requested);
+    if (requested) setOpen(true);
   }
 
   return (
@@ -61,6 +68,7 @@ export function DayCard({ week, day, isNext }: { week: Week; day: Day; isNext: b
         <ul className="task-list">
           {day.tasks.map((t, i) => {
             const checked = !!state.tasks[t.id];
+            const resource = getTaskResource(t.id);
             return (
               <li key={t.id} className={`task ${checked ? 'is-done' : ''} ${i === nextIdx ? 'is-next' : ''}`} id={`task-${t.id}`}>
                 <label>
@@ -70,6 +78,7 @@ export function DayCard({ week, day, isNext }: { week: Week; day: Day; isNext: b
                   </span>
                   <span className="task-text">{t.text}</span>
                 </label>
+                {resource && <TaskResourceRow week={week} resource={resource} taskId={t.id} />}
                 {i === nextIdx && <span className="task-next-tag">Next task</span>}
               </li>
             );

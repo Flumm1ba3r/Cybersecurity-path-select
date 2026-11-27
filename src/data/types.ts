@@ -67,3 +67,10 @@ export interface Week {
   weeklyReflectionQuestions: string[];
   careerReality: string;
 }
+
+/** A resource a daily task refers to, shown inline in the checklist. */
+export type TaskResource =
+  | { type: 'video'; videoId: string }
+  | { type: 'challenge' }
+  | { type: 'walkthrough'; index: number }
+  | { type: 'related'; index: number };
